@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { redirect, usePathname } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
-import {Session} from "./dashboard"
+import {Session} from "@/types/session"
 
 
 function Sidebar({session}:{session:Session}) {

@@ -10,7 +10,7 @@ const ProductSchema= new mongoose.Schema({
         required:true
       },
       productId:{
-        type:Number,
+        type:String,
         required:true
       },
       quantity:{

@@ -81,7 +81,7 @@ redirect("/dashboard")        },
               type="text"
               autoComplete="name"
               {...register("name", { required: "email is required" })}
-              className="w-full px-3 py-2 border mb-5 text-black border-gray-300 rounded-lg text-black shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+              className="w-full px-3 py-2 border mb-5  border-gray-300 rounded-lg text-black shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
               placeholder="Enter your full name"
             />{" "}
             {errors.name && (
