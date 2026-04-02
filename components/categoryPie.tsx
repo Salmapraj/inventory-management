@@ -4,7 +4,7 @@ const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#a855f7"];
 
 function CategoryPie({data}:{data:{ name: string; value: number }[]}) {
   return (
-<PieChart width={600} height={300}>
+<PieChart width={500} height={500}>
  <Pie
         data={data}
         dataKey="value"

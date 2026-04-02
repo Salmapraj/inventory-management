@@ -20,11 +20,12 @@ function Sidebar({session}:{session:Session}) {
 
   const {name,image,email}= session
   return (
-    <div className="py-8 relative px-5  h-full  bg-[#1d1f30]">
+    <div className="flex justify-between flex-col h-full bg-[#1d1f30]">
+
+    <div className="py-8  px-5 overflow-y-auto bg-[#1d1f30]">
       <h1 className="text-xl text-gray-100  font-semibold mb-5">
         Inventory App
       </h1>
-      <div className="flex flex-col justify-between gap-2 h-full">
         <div className="flex flex-col justify-between gap-2 ">
           <h2 className="text-gray-400  px-2">Inventory</h2>
 
@@ -133,15 +134,25 @@ ${pathname === "/inventory" ? "bg-gray-500 rounded-lg text-gray-50" : "text-gray
             <h2>Logout</h2>
           </div>
         </div>
-      </div>
 
-      <div className="absolute  bottom-0 left-0 right-0">
+
+        </div>
+
+      {/* <div className="absolute  bottom-0 left-0 right-0">
 <div className="flex gap-3 py-4  px-5  justify-center bg-gray-900 text-gray-100">
   <span className="bg-gray-200 rounded-xl">{image}</span>
   <span className="text-sm ">{email}
   </span>
 </div>
-      </div>
+      </div> */}
+
+        <div className="flex gap-3 py-4 px-5 justify-center bg-gray-900 text-gray-100 shrink-0">
+    <span className="bg-gray-200 rounded-xl">{image}</span>
+    <span className="text-sm">{email}</span>
+  </div>
+
+
+   
     </div>
   );
 }

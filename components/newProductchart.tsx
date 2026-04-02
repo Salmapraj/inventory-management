@@ -8,7 +8,7 @@ type ChartData = {
 function NewProductChart({data}:{data:ChartData[]}) {
 
   return (
-    <div className='bg-blue-100  p-3  '>
+    <div className='bg-blue-100  p-3  rounded-xl'>
       <h1 className="text-lg font-medium mb-3">New Products</h1>
 
 <ResponsiveContainer width="80%" height={200}>

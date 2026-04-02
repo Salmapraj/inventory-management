@@ -24,16 +24,13 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="en" className="h-full"
     >
       <body     
         className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
 >
-        <div className="min-h-screen  bg-gray-50">
             {children}
-         
-        </div>
-        
+       
       </body>
     </html>
   );

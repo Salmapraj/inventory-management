@@ -24,7 +24,6 @@ function DashBoard({
   pieData
 }: DashboardProps) {
   return (
-    <div className=" min-h-screen ">
       <div className="p-8">
         <div className="mb-5">
           <h1 className="text-xl font-semibold text-green-800 mb-3">
@@ -45,11 +44,11 @@ function DashBoard({
 
 
 
-<div className="flex">
+<div className="flex gap-5  min-w-0">
 
-        <div className="flex  flex-col  gap-5 p-2">
+<div className="flex flex-col min-w-0 gap-5 p-2 w-[55%]">
 
-          <div className="flex gap-4">
+<div className="grid grid-cols-3 gap-4">
           <div className="bg-green-100 shadow-gray-300 p-5 rounded-xl">
             <div className="flex  justify-between  gap-4">
               <div className="flex gap-4 items-center justify-center">
@@ -112,12 +111,12 @@ function DashBoard({
               </div>
             </div>
           </div>
-</div>
+            </div>
           
 
 
-          <div className="bg-gray-50 grid grid-[2fr_1fr] gap-2 p-3 rounded-xl ">          
-<div className="col-span-1 p-3">  
+<div className="flex flex-col min-w-0 gap-5 p-2 w-[55%]">
+            <div className="col-span-1 p-3">  
                 <h1 className="text-sm  font-medium mb-3">Stock Levels</h1>
                  
                   <div className="grid grid-cols-[2fr_1fr_1fr] gap-3 items-center px-2 mb-2 text-sm font-medium text-gray-500">
@@ -238,7 +237,7 @@ function DashBoard({
 </div>
 
       </div>
-    </div>
+   
   );
 }
 

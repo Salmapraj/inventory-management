@@ -69,10 +69,9 @@ async function dashboard() {
     value,
   }));
 
-  console.log("cc", categoryMap);
 
   return (
-    <div className=" min-h-screen bg-blue-50 py-5 px-3    ">
+    <div className="bg-blue-50 py-5     ">
       <DashBoard
         {...session.user}
         totalVal={totalQuantity}
