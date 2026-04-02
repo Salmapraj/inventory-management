@@ -93,9 +93,11 @@ function InventoryDash({ products }: { products: Products[] }) {
           )}
         </div>
 
-        <Link href="/add-products" className="text-blue-500 hover:underline">
-          Add Product
-        </Link>
+        <Link href="/add-products">
+                 <button className="bg-[#1d1f30] text-gray-100 py-2 px-4 rounded-md hover:bg-gray-700">
+                   Add Products
+                 </button>
+                    </Link>
       </div>
       <div className="">
         <table className="w-full text-sm bg-gray-50 border rounded-xl border-gray-300">

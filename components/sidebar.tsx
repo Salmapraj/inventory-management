@@ -4,9 +4,12 @@ import Link from "next/link";
 import { redirect, usePathname } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import {Session} from "@/types/session"
+import { useState } from "react";
+import {Menu} from "lucide-react"
 
 
 function Sidebar({session}:{session:Session}) {
+const [open, setOpen] = useState(false)
   const pathname = usePathname();
   const handleSignOut = async () => {
     await authClient.signOut({
@@ -20,9 +23,25 @@ function Sidebar({session}:{session:Session}) {
 
   const {name,image,email}= session
   return (
-    <div className="flex justify-between flex-col h-full bg-[#1d1f30]">
+  <>
+<button
+onClick={()=>setOpen(!open)}
+className={`absolute lg:hidden z-50 -top-1 left-6  p-2 ${open?"text-gray-300":"text-gray-700"}`}> 
+  <Menu size={22}  className=""/>
+</button>
 
-    <div className="py-8  px-5 overflow-y-auto bg-[#1d1f30]">
+  {open && (
+        <div
+          className="fixed inset-0 bg-black/50 bg-opacity-50 z-30 lg:hidden transition-opacity duration-300"
+          onClick={() => setOpen(false)}
+          aria-label="Close sidebar"
+        />
+      )}
+   <div className={`flex justify-between flex-col h-full bg-[#1d1f30] fixed lg:relative lg:translate-x-0 w-60 shrink-0
+  ${open ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out z-40
+`}>  
+
+  <div className="py-8  px-5 overflow-y-auto bg-[#1d1f30]">
       <h1 className="text-xl text-gray-100  font-semibold mb-5">
         Inventory App
       </h1>
@@ -138,13 +157,6 @@ ${pathname === "/inventory" ? "bg-gray-500 rounded-lg text-gray-50" : "text-gray
 
         </div>
 
-      {/* <div className="absolute  bottom-0 left-0 right-0">
-<div className="flex gap-3 py-4  px-5  justify-center bg-gray-900 text-gray-100">
-  <span className="bg-gray-200 rounded-xl">{image}</span>
-  <span className="text-sm ">{email}
-  </span>
-</div>
-      </div> */}
 
         <div className="flex gap-3 py-4 px-5 justify-center bg-gray-900 text-gray-100 shrink-0">
     <span className="bg-gray-200 rounded-xl">{image}</span>
@@ -152,8 +164,9 @@ ${pathname === "/inventory" ? "bg-gray-500 rounded-lg text-gray-50" : "text-gray
   </div>
 
 
-   
     </div>
+
+  </>
   );
 }
 

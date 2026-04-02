@@ -10,7 +10,7 @@ import {
 import NewProductChart from "./newProductchart";
 import CategoryPie from "./categoryPie";
 import { DashboardProps } from "@/types/dashboardProp";
-
+import Link from "next/link";
 
 function DashBoard({
   email,
@@ -24,7 +24,7 @@ function DashBoard({
   pieData
 }: DashboardProps) {
   return (
-      <div className="p-8">
+      <div className="p-8      h-full">
         <div className="mb-5">
           <h1 className="text-xl font-semibold text-green-800 mb-3">
             Dashboard
@@ -42,13 +42,23 @@ function DashBoard({
 
 
 
-
-
+      {allProducts.length === 0 ? 
+        <div className="h-screen items-center  flex flex-col gap-5 justify-center">
+          <h1 className="text-3xl text-gray-500 font-medium"> No Products to show</h1>
+          
+          <Link href="/add-products">
+          <button className="bg-[#1d1f30] text-gray-100 py-2 px-4 rounded-md hover:bg-gray-700">
+            Add Products
+          </button>
+             </Link>
+        </div>
+      :
+   
 <div className="flex gap-5  min-w-0">
 
-<div className="flex flex-col min-w-0 gap-5 p-2 w-[55%]">
+<div className="flex flex-col  gap-5 p-2 ">
 
-<div className="grid grid-cols-3 gap-4">
+<div className="flex flex-wrap gap-4">
           <div className="bg-green-100 shadow-gray-300 p-5 rounded-xl">
             <div className="flex  justify-between  gap-4">
               <div className="flex gap-4 items-center justify-center">
@@ -115,8 +125,8 @@ function DashBoard({
           
 
 
-<div className="flex flex-col min-w-0 gap-5 p-2 w-[55%]">
-            <div className="col-span-1 p-3">  
+<div className="flex flex-col  gap-5 p-2 ">
+            <div className="col-span-2 p-3 border border-gray-300 rounded-lg">  
                 <h1 className="text-sm  font-medium mb-3">Stock Levels</h1>
                  
                   <div className="grid grid-cols-[2fr_1fr_1fr] gap-3 items-center px-2 mb-2 text-sm font-medium text-gray-500">
@@ -175,7 +185,7 @@ function DashBoard({
                 
             </div>
 
-<div className="col-span-1 p-3  rounded-xl"> 
+<div className="col-span-1 p-3 border border-gray-300 rounded-lg"> 
                   <div className="flex gap-5 mb-3 text-center p-1">
                   <h1 className="">Low Stock </h1>
                   <TriangleAlert size={20} className="text-red-500" />
@@ -235,7 +245,7 @@ function DashBoard({
           </div>
         </div>
 </div>
-
+   }
       </div>
    
   );

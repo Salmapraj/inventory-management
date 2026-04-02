@@ -3,7 +3,7 @@ import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-
+import { useRouter } from "next/navigation";
 type FormData = {
   name?: string;
   email: string;
@@ -14,7 +14,7 @@ function AuthClient() {
 const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>();  
 const [isSignIn, setIssignIn] = useState(true);
 const [authError, setAuthError] = useState<string | null>(null);
-
+const router = useRouter();
 
   const onSubmitt = async(fdata:FormData) => {
     setAuthError(null)
@@ -33,7 +33,8 @@ const [authError, setAuthError] = useState<string | null>(null);
 console.log("singing up")
         },
         onSuccess: (ctx) => {
-redirect("/dashboard")        },
+router.push("/dashboard")      
+  },
         onError: (ctx) => {
             alert(ctx.error.message);
             console.log('err',ctx)
@@ -66,7 +67,8 @@ redirect("/dashboard")        },
     }
   };
   return (
-    <div className="text-gray-500">
+    
+    <div className="text-gray-500 w-full max-w-md">
       <h1 className="text-3xl mb-5">{isSignIn ? "Welcome Back" : "Create an Account"}</h1>
       <form onSubmit={handleSubmit(onSubmitt)}>
         {!isSignIn && (
@@ -148,6 +150,7 @@ redirect("/dashboard")        },
         </button>
       </div>
     </div>
+    
   );
 }
 

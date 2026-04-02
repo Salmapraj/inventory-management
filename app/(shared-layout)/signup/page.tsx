@@ -11,7 +11,7 @@ async function signup() {
   }
 
   return (
-    <div className="max-w-md w-full ">
+    <div className="flex min-h-screen items-center justify-center">
       <AuthClient />
     </div>
   );
