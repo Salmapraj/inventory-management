@@ -23,12 +23,12 @@ const session = await auth.api.getSession({
 
         <div className="flex gap-6 justify-center mt-14">
           <Link href="/signup">
-            <button className="bg-purple-800 text-md font-medium text-gray-50 py-3 hover:bg-purple-700 cursor-pointer px-8 hover:bg rounded-xl">
+            <button className="bg-gray-900 text-md font-medium text-gray-50 py-3 hover:bg-gray-700 cursor-pointer px-8 hover:bg rounded-xl">
               Sign In
             </button>
           </Link>
           <Link href="/learnmore">
-            <button className="bg-gray-50 text-md font-medium cursor-pointer px-8 text-purple-900 hover:bg-gray-100  py-3 border border-purple-700 rounded-xl">
+            <button className="bg-gray-50 text-md font-medium cursor-pointer px-8 text-gray-900 hover:bg-gray-100  py-3 border border-gray-900 rounded-xl">
               Learn More
             </button>
           </Link>

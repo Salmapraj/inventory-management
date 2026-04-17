@@ -3,7 +3,13 @@ import { Products } from "@/types/products";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-import { ChevronDown, ChevronUp } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronUp,
+  SquarePen,
+  Trash2,
+  XCircle,
+} from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 function InventoryDash({ products }: { products: Products[] }) {
@@ -11,9 +17,16 @@ function InventoryDash({ products }: { products: Products[] }) {
   const [search, setSearch] = useState("");
   const [click, setClick] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All Products");
-
+  const [editingProduct, setEditingProduct] = useState<Products | null>(null);
+  const [editForm, setEditForm] = useState({
+    name: "",
+    price: "",
+    quantity: 0.0,
+    category: "",
+    productId: "",
+  });
   const categories = [...new Set(products.map((p) => p.category))];
-
+  console.log("categories", categories);
   const handleDelete = async (productId: string) => {
     try {
       const response = await axios.delete(`/api/products/${productId}`);
@@ -27,11 +40,33 @@ function InventoryDash({ products }: { products: Products[] }) {
     setSearch(e.target.value);
   };
   const filteredProducts = products
-  .filter((product) =>product.name.toLowerCase().includes(search.toLowerCase()))
-  .filter((p)=>selectedCategory==="All Products"?true: p.category===selectedCategory)
+    .filter((product) =>
+      product.name.toLowerCase().includes(search.toLowerCase()),
+    )
+    .filter((p) =>
+      selectedCategory === "All Products"
+        ? true
+        : p.category === selectedCategory,
+    );
+
+  const handleEdit = (
+    product: Products,
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+
+    setEditingProduct(product);
+    setEditForm({
+      name: product.name,
+      price: product.price,
+      quantity: product.quantity,
+      productId: product.productId,
+      category: product.category,
+    });
+  };
 
   return (
-    <div className=" rounded-xl p-5">
+    <main className=" rounded-xl p-5 min-w-0">
       <div className="mb-6 flex gap-8">
         {/* for search bar  */}
 
@@ -46,8 +81,7 @@ function InventoryDash({ products }: { products: Products[] }) {
         />
 
         <div className="relative inline-block w-36">
-          <div
-          className="flex justify-evenly gap-2 text-gray-500 text-sm border rounded-lg  bg-gray-50 border-gray-300 p-1">
+          <div className="flex justify-evenly gap-2 text-gray-500 text-sm border rounded-lg  bg-gray-50 border-gray-300 p-1">
             <span className=" px-3">{selectedCategory} </span>
             {click ? (
               <ChevronUp
@@ -66,13 +100,15 @@ function InventoryDash({ products }: { products: Products[] }) {
           {click && (
             <div className="absolute top-6 z-10 w-full ">
               <div className=" text-sm text-gray-500   border rounded-br-lg rounded-bl-lg border-gray-300 cursor-pointer bg-gray-50">
-                <span  
-                        onClick={() => {
-                      setSelectedCategory("All Products");
-                      setClick(false);
-                    }}     
-                      className="hover:bg-blue-100 p-2  block"
->All Products</span>
+                <span
+                  onClick={() => {
+                    setSelectedCategory("All Products");
+                    setClick(false);
+                  }}
+                  className="hover:bg-blue-100 p-2  block"
+                >
+                  All Products
+                </span>
                 {categories.map((category) => (
                   <div
                     key={category}
@@ -82,10 +118,7 @@ function InventoryDash({ products }: { products: Products[] }) {
                     }}
                     className="hover:bg-blue-100 p-2"
                   >
-
-                    <span className="mb-2  ">
-{category}
-</span>
+                    <span className="mb-2 ">{category}</span>
                   </div>
                 ))}
               </div>
@@ -94,19 +127,21 @@ function InventoryDash({ products }: { products: Products[] }) {
         </div>
 
         <Link href="/add-products">
-                 <button className="bg-[#1d1f30] text-gray-100 py-2 px-4 rounded-md hover:bg-gray-700">
-                   Add Products
-                 </button>
-                    </Link>
+          <button className="bg-[#1d1f30] text-gray-100 py-2 px-4 rounded-md hover:bg-gray-700">
+            Add Products
+          </button>
+        </Link>
       </div>
       <div className="">
-        <table className="w-full text-sm bg-gray-50 border rounded-xl border-gray-300">
+        <table className="w-full text-sm bg-gray-50 border-none rounded-xl ">
           <thead>
-            <tr className="border  text-left text-gray-600 border-gray-300 ">
+            <tr className="  text-left text-gray-600  ">
               <th className="py-3 px-2">Product Name</th>
+              <th className="py-3 px-2">SKU</th>
               <th className="py-3 px-2">Category</th>
               <th className="py-3 px-2"> Price</th>
               <th className="py-3 px-2"> Qty</th>
+              <th className="py-3 px-2"> Created At</th>
               <th className="py-3 px-2"> Status</th>
               <th className="py-3 px-2"> Actions</th>
             </tr>
@@ -116,14 +151,20 @@ function InventoryDash({ products }: { products: Products[] }) {
             {filteredProducts?.map((product: Products) => (
               <tr
                 key={product._id}
-                className="border text-gray-500 text-left border-gray-300  hover:bg-gray-100"
+                className=" text-gray-500 text-left   hover:bg-gray-100"
               >
                 <td className="py-3 px-2">{product.name}</td>
+                <td className="py-3 px-2">{product.productId}</td>
+
                 <td className="py-3 px-2">{product.category}</td>
                 <td className="py-3 px-2">
                   ${Number(product.price).toFixed(2)}
                 </td>
                 <td className="py-3 px-2">{product.quantity}</td>
+                <td className="py-3 px-2">
+                  {product?.createdAt?.split("T")[0]}
+                </td>
+
                 <td className="py-3 px-2">
                   <span
                     className={`px-3 py-2 rounded-full text-xs font-medium
@@ -144,22 +185,138 @@ function InventoryDash({ products }: { products: Products[] }) {
                 </td>
 
                 <td className="py-3 px-2 flex gap-4">
-                  <button className="text-blue-500 hover:underline">
-                    Edit
-                  </button>
-                  <button
+                  <SquarePen
+                    onClick={(e) => handleEdit(product, e)}
+                    size={17}
+                    className="text-blue-500 cursor-pointer"
+                  />
+
+                  <Trash2
                     onClick={() => handleDelete(product._id)}
-                    className="text-red-500 hover:underline"
-                  >
-                    Delete
-                  </button>
+                    size={17}
+                    className="text-red-400 cursor-pointer"
+                  />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    </div>
+
+      {/* modal for edit function */}
+      {editingProduct && (
+        <div
+          onClick={() => {
+            setEditingProduct(null);
+          }}
+          className="inset-0 bg-black/40 fixed z-50 flex items-center justify-center"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="rounded-xl bg-gray-50 max-w-md p-6"
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h1>Edit</h1>
+              <button>
+                <XCircle
+                  size={22}
+                  onClick={() => setEditingProduct(null)}
+                  className="hover:text-red-500 cursor-pointer"
+                />
+              </button>
+            </div>
+
+            {/* name prooduct */}
+            <div className="mb-5 flex flex-col gap-2">
+              <label className="text-gray-600 text-xs">Product Name</label>
+              <input
+                type="text"
+                value={editingProduct?.name}
+                className="text-gray-400  border border-gray-400 p-2 rounded-xl focus:border-gray-500 "
+              />
+            </div>
+
+            <div className="grid grid-cols-[1fr_1fr] gap-4 mb-3">
+              <div>
+                <label className="text-gray-600 text-xs">SKU</label>
+                <input
+                  type="text"
+                  value={editingProduct.productId}
+                  className="text-gray-400 w-full  border border-gray-400 p-2 rounded-xl focus:border-gray-500 "
+                />
+              </div>
+
+              <div className="">
+                <label className="text-gray-600 text-xs">Category</label>
+                <select
+                  value={editingProduct.category}
+                  name=""
+                  className="text-gray-400 w-full  border border-gray-300 p-2 rounded-xl  "
+                >
+                  <option value="serum">Serum</option>
+                  <option value="moisturizer">Moisturizer</option>
+                  <option value="Sunscreen">Sunscreen</option>
+                  <option value="cleanser">Cleanser</option>
+                  <option value="lipoil">Lip Oil</option>
+                  <option value="facemask">Face Mask</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-[1fr_1fr] gap-4 mb-4">
+              <div>
+                <label className="text-gray-600 text-sm"> Price($)</label>
+                <input
+                  type="text"
+                  value={editingProduct.price}
+                  placeholder="0.00"
+                  className="w-full text-gray-400  border border-gray-400 p-2 rounded-xl"
+                />
+              </div>
+
+              <div>
+                <label className="text-gray-600 text-sm">Quantity</label>
+                <input
+                  type="number"
+                  value={editingProduct.quantity}
+                  min={0}
+                  className="w-full text-gray-400  border border-gray-400 p-2 rounded-xl focus:border-gray-500 "
+                />
+              </div>
+            </div>
+
+            <p className="text-gray-500 text-xs mr-5">
+              status preview:
+              <span
+                className={`px-3 py-2 rounded-full text-xs font-medium
+                  ${
+                    editingProduct.quantity === 0
+                      ? "bg-red-100 text-red-600"
+                      : editingProduct.quantity < 8
+                        ? "bg-yellow-100 text-yellow-600"
+                        : "bg-green-100 text-green-600"
+                  }`}
+              >
+                {editingProduct.quantity === 0
+                  ? "Out of Stock"
+                  : editingProduct.quantity < 8
+                    ? "Low Stock"
+                    : "In Stock"}
+              </span>{" "}
+            </p>
+            <hr className="text-gray-400  my-3" />
+            <div className="flex gap-6">
+              <button className="px-4 py-2 text-sm text-gray-500 border border-gray-200 rounded-lg">
+                Cancel
+              </button>
+              <button className="px-4 py-2 text-sm bg-[#1d1f30] text-white rounded-lg">
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </main>
   );
 }
 

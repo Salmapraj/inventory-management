@@ -71,7 +71,7 @@ async function dashboard() {
 
 
   return (
-    <div className="bg-blue-50 py-5     ">
+    <div className="bg-blue-50 py-5  w-full   ">
       <DashBoard
         {...session.user}
         totalVal={totalQuantity}

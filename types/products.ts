@@ -5,4 +5,7 @@ export interface Products {
   quantity: number;
   category: string;
   lowStock: string;
+  productId: string;
+  createdAt?: string;
+  image?: string;
 }

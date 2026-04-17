@@ -104,7 +104,7 @@ router.push("/dashboard")
             type="email"
             {...register("email", { required: "Email is required" })}
             autoComplete="email"
-            className="w-full mb-5  px-3 py-2 border text-black border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+            className="w-full mb-5  px-3 py-2 border text-black border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition-colors"
             placeholder="Enter your email"
           />
           {errors.email && (
@@ -125,7 +125,7 @@ router.push("/dashboard")
           required: "Password is required",
           minLength: { value: 6, message: "Password must be at least 6 characters" },
         })}
-            className="w-full mb-5 px-3 py-2 border text-black border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
+            className="w-full mb-5 px-3 py-2 border text-black border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-gray-500 transition-colors"
             placeholder="Enter your password"
           />
                 {errors.password && <p style={{ color: "red" }}>{errors.password.message as string}</p>}

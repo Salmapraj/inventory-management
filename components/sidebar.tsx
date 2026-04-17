@@ -37,7 +37,7 @@ className={`absolute lg:hidden z-50 -top-1 left-6  p-2 ${open?"text-gray-300":"t
           aria-label="Close sidebar"
         />
       )}
-   <div className={`flex justify-between flex-col h-full bg-[#1d1f30] fixed lg:relative lg:translate-x-0 w-60 shrink-0
+   <div className={`flex justify-between shrink-0 flex-col h-full bg-[#1d1f30] fixed lg:relative lg:translate-x-0 w-60 
   ${open ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out z-40
 `}>  
 

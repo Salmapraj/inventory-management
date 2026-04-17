@@ -7,7 +7,6 @@ function AddProducts() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(formData);
     try {
       const response = await axios.post(`/api/add`, formData);
       console.log("form submiited");
@@ -50,8 +49,9 @@ function AddProducts() {
 
       {/* Form */}
       <div className="flex justify-center">
-        <div className="bg-white   rounded-xl p-8 max-w-lg">
-          <form
+        <div className="bg-white grid grid-cols-2  rounded-xl p-8 ">
+         <div>
+           <form
             onSubmit={handleSubmit}
             method="post"
             className="flex flex-col gap-5  "
@@ -174,6 +174,13 @@ function AddProducts() {
               </button>
             </div>
           </form>
+         </div>
+
+{/* image upload section */}
+
+         <div>
+
+         </div>
         </div>
       </div>
     </div>
