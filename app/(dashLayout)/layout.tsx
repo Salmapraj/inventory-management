@@ -17,12 +17,10 @@ export default async function DashLayout({
     redirect("/signup");
   }
   return (
-    <div className="grid grid-cols-[auto_1fr] h-screen ">
+    <div className="grid grid-cols-1 lg:grid-cols-[15rem_1fr] h-screen bg-blue-700">
       <Sidebar session={session?.user} />
 
-<main className="overflow-y-auto min-w-0">
-  {children}
-</main>
+      <main className="overflow-y-auto min-w-0">{children}</main>
     </div>
   );
 }
